@@ -1,0 +1,850 @@
+{
+	"info": {
+		"_postman_id": "51fe3253-3758-4766-893c-923783693fe4",
+		"name": "Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18237981"
+	},
+	"item": [
+		{
+			"name": "Auth in keycloak",
+			"item": [
+				{
+					"name": "Get realm info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/realms/DigitalMedia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"DigitalMedia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get realm openId config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/realms/DigitalMedia/.well-known/openid-configuration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"DigitalMedia",
+								".well-known",
+								"openid-configuration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth endpoint",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/realms/DigitalMedia/protocol/openid-connect/auth?client_id=microservicios&response_type=code&redirect_uri=http://localhost:8081/&scope=openid&client_secret=pe6zKFxXCjMZnVaJm7T3N7i4gCzpPXgH",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"DigitalMedia",
+								"protocol",
+								"openid-connect",
+								"auth"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "microservicios"
+								},
+								{
+									"key": "response_type",
+									"value": "code"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8081/"
+								},
+								{
+									"key": "scope",
+									"value": "openid"
+								},
+								{
+									"key": "client_secret",
+									"value": "pe6zKFxXCjMZnVaJm7T3N7i4gCzpPXgH"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "15c722a7-fc73-4e83-9037-50305592c975.5e2bae6e-0bae-43b3-92b5-a8533ef2d56b.fd5f711c-ab20-4e31-88be-1ce5ab4e06f7",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "microservicios",
+									"type": "text"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8081/",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "pe6zKFxXCjMZnVaJm7T3N7i4gCzpPXgH",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/DigitalMedia/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"DigitalMedia",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0ZGQ1YjdmYS1lZGY1LTRjYjYtOTNhMi1hNzNkNmFjYmJlYzYifQ.eyJleHAiOjE2Njg0Nzk5NTAsImlhdCI6MTY2ODQ3ODE1MCwianRpIjoiZmE4YmY2MjAtYzZmNC00MmJiLWJhZjItNjM4OGYxODUwODk3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9EaWdpdGFsTWVkaWEiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcmVhbG1zL0RpZ2l0YWxNZWRpYSIsInN1YiI6IjE1YTk0NDEyLTQ0OTQtNDIwOC1hNWQ3LWU5YjhhMjRiZDc5YiIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJvaWRjLXBvc3RtYW4iLCJzZXNzaW9uX3N0YXRlIjoiZWM3NWY1YmQtZjYzYS00ZDg5LWIzNzctMjg5MThiOGZhZDhkIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInNpZCI6ImVjNzVmNWJkLWY2M2EtNGQ4OS1iMzc3LTI4OTE4YjhmYWQ4ZCJ9.Tv20ZP7wUz-oT_dp_rNL1djSjIr_PqjAIXXRzlrd5Cw",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "oidc-postman",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid userScope",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/DigitalMedia/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"DigitalMedia",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/realms/DigitalMedia/protocol/openid-connect/logout?id_token=eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyb0NPT3B0WXZDNnhPZEtaWmVUV1QzdUpqOEJBZ1BvYWFJdFpjNE5sdF8wIn0.eyJleHAiOjE2Njg4NzI4MjEsImlhdCI6MTY2ODg3MjUyMSwiYXV0aF90aW1lIjoxNjY4ODcyNTAzLCJqdGkiOiIzM2FiN2MxZi04NTAzLTRkYTYtYjlkYS03MjY1NWU5N2JmMTEiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcmVhbG1zL0RpZ2l0YWxNZWRpYSIsImF1ZCI6ImludGVybmFsIiwic3ViIjoiMTc5N2I1NzItYjU3NC00ZDgzLWE5N2ItMmFjNGJjNWU3NzkwIiwidHlwIjoiSUQiLCJhenAiOiJpbnRlcm5hbCIsInNlc3Npb25fc3RhdGUiOiI4OWJjNTVkNC01NjFkLTRmMzQtYTMyYy0wZGQ1ZDVkY2YzODQiLCJhdF9oYXNoIjoiNmJSVUZ2OEhheHF0WWFmMlYyOElzdyIsImFjciI6IjEiLCJzaWQiOiI4OWJjNTVkNC01NjFkLTRmMzQtYTMyYy0wZGQ1ZDVkY2YzODQiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6ImNsaWVudCBjbGllbnQiLCJncm91cHMiOlsiL2NsaWVudCJdLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJjbGllbnQiLCJnaXZlbl9uYW1lIjoiY2xpZW50IiwiZmFtaWx5X25hbWUiOiJjbGllbnQiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSJ9.mngOYOFOFtajVa3sCqR5PwnvgxZApZbli_qq7oysTGstdcHMM73WimoKbYzpZak8BXWEK8BawiNkAyBK0q29E-mGFEi0M014ASpwXWC6jktYINQGonmfSU5jlkNTfzg2loHntSLuLN5aBXVsThqQzUZOxieMjfHIHZqLjLjrewYzcS0sxk9tmGzSebxnBwAYw8I-aIu0dpJsZlXDioOYJI_R6ByEHiXsAtNRrOWfaCjJN6nZjXMSJ-lJ6Z9sgN1KpCWsCctvO2CKK6dh8z_3WE9VRVeI6R2kJZDObV8xwbVR3WBBRwSqzLeErzBcWLKd5jpZB0g_w9Bh5voDWz7zBg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"DigitalMedia",
+								"protocol",
+								"openid-connect",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "id_token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyb0NPT3B0WXZDNnhPZEtaWmVUV1QzdUpqOEJBZ1BvYWFJdFpjNE5sdF8wIn0.eyJleHAiOjE2Njg4NzI4MjEsImlhdCI6MTY2ODg3MjUyMSwiYXV0aF90aW1lIjoxNjY4ODcyNTAzLCJqdGkiOiIzM2FiN2MxZi04NTAzLTRkYTYtYjlkYS03MjY1NWU5N2JmMTEiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcmVhbG1zL0RpZ2l0YWxNZWRpYSIsImF1ZCI6ImludGVybmFsIiwic3ViIjoiMTc5N2I1NzItYjU3NC00ZDgzLWE5N2ItMmFjNGJjNWU3NzkwIiwidHlwIjoiSUQiLCJhenAiOiJpbnRlcm5hbCIsInNlc3Npb25fc3RhdGUiOiI4OWJjNTVkNC01NjFkLTRmMzQtYTMyYy0wZGQ1ZDVkY2YzODQiLCJhdF9oYXNoIjoiNmJSVUZ2OEhheHF0WWFmMlYyOElzdyIsImFjciI6IjEiLCJzaWQiOiI4OWJjNTVkNC01NjFkLTRmMzQtYTMyYy0wZGQ1ZDVkY2YzODQiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6ImNsaWVudCBjbGllbnQiLCJncm91cHMiOlsiL2NsaWVudCJdLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJjbGllbnQiLCJnaXZlbl9uYW1lIjoiY2xpZW50IiwiZmFtaWx5X25hbWUiOiJjbGllbnQiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSJ9.mngOYOFOFtajVa3sCqR5PwnvgxZApZbli_qq7oysTGstdcHMM73WimoKbYzpZak8BXWEK8BawiNkAyBK0q29E-mGFEi0M014ASpwXWC6jktYINQGonmfSU5jlkNTfzg2loHntSLuLN5aBXVsThqQzUZOxieMjfHIHZqLjLjrewYzcS0sxk9tmGzSebxnBwAYw8I-aIu0dpJsZlXDioOYJI_R6ByEHiXsAtNRrOWfaCjJN6nZjXMSJ-lJ6Z9sgN1KpCWsCctvO2CKK6dh8z_3WE9VRVeI6R2kJZDObV8xwbVR3WBBRwSqzLeErzBcWLKd5jpZB0g_w9Bh5voDWz7zBg"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Bills Request",
+			"item": [
+				{
+					"name": "Api gateway",
+					"item": [
+						{
+							"name": "Api gateway Get all bills",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/bills/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"bills",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Api gateway Post bill Copy",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"billingDate\": \"2022-11-20\",\r\n    \"productBill\": \"courses/Java\",\r\n    \"customerBill\": \"Andre\",\r\n    \"totalPrice\": 500\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/bills",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"bills"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Api gateway Get all user bills Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/bills/detail/andre",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"bills",
+										"detail",
+										"andre"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Direct request",
+					"item": [
+						{
+							"name": "Get all bills",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/bills/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"bills",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post bill",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"billingDate\": \"2022-11-20\",\r\n    \"productBill\": \"courses/Java\",\r\n    \"customerBill\": \"Andre\",\r\n    \"totalPrice\": 500\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8085/bills",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"bills"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all user bills",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/bills/detail/andre",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"bills",
+										"detail",
+										"andre"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Movies Request",
+			"item": [
+				{
+					"name": "Api gateway",
+					"item": [
+						{
+							"name": "Api gateway Get movies",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/movies/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"movies",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Api gateway Post movie",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imdbId\": \"tt0120804\",\r\n    \"title\": \"Resident Evil\",\r\n    \"director\": \"Paul W.S. Anderson\",\r\n    \"year\": \"2002\",\r\n    \"poster\": \"https://m.media-amazon.com/images/M/MV5BN2Y2MTljNjMtMDRlNi00ZWNhLThmMWItYTlmZjYyZDk4NzYxXkEyXkFqcGdeQXVyNjQ2MjQ5NzM@._V1_SX300.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/movies/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"movies",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Api gateway Get movie by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/movies/tt0120804",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"movies",
+										"tt0120804"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Api gateway Put movie",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Resident Evil: Apocalypse\",\r\n    \"director\": \"Paul W.S. Anderson\",\r\n    \"year\": \"2004\",\r\n    \"poster\": \"https://m.media-amazon.com/images/M/MV5BMTc1NTUxMzk0Nl5BMl5BanBnXkFtZTcwNDQ1MDIzMw@@._V1_SX300.jpg   \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/movies/tt0120804",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"movies",
+										"tt0120804"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Api gateway Delete movie",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/movies/tt0120804",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"movies",
+										"tt0120804"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Api gateway Post comment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"Very good\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/movies/tt0120804/comments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"movies",
+										"tt0120804",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Direct request",
+					"item": [
+						{
+							"name": "Get movies",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/movies",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post movie",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imdbId\": \"tt0120804\",\r\n    \"title\": \"Resident Evil\",\r\n    \"director\": \"Paul W.S. Anderson\",\r\n    \"year\": \"2002\",\r\n    \"poster\": \"https://m.media-amazon.com/images/M/MV5BN2Y2MTljNjMtMDRlNi00ZWNhLThmMWItYTlmZjYyZDk4NzYxXkEyXkFqcGdeQXVyNjQ2MjQ5NzM@._V1_SX300.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/movies/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"movies",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get movie by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/movies/tt0120804",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"movies",
+										"tt0120804"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put movie",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Resident Evil: Apocalypse\",\r\n    \"director\": \"Paul W.S. Anderson\",\r\n    \"year\": \"2004\",\r\n    \"poster\": \"https://m.media-amazon.com/images/M/MV5BMTc1NTUxMzk0Nl5BMl5BanBnXkFtZTcwNDQ1MDIzMw@@._V1_SX300.jpg   \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/movies/tt0120804",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"movies",
+										"tt0120804"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete movie",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/movies/tt0120804",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"movies",
+										"tt0120804"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"Very good\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/movies/tt0120804/comments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"movies",
+										"tt0120804",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User Request",
+			"item": [
+				{
+					"name": "Api gateway",
+					"item": [
+						{
+							"name": "Get all non admin users Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/users/admin/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"users",
+										"admin",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Api gateway Find by username",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/users/findUsername/andre",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"users",
+										"findUsername",
+										"andre"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Direct request",
+					"item": [
+						{
+							"name": "Get all non admin users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8084/users/admin/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"users",
+										"admin",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find by username",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8084/users/findUsername/andre",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"users",
+										"findUsername",
+										"andre"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyb0NPT3B0WXZDNnhPZEtaWmVUV1QzdUpqOEJBZ1BvYWFJdFpjNE5sdF8wIn0.eyJleHAiOjE2NjkwMDIyODQsImlhdCI6MTY2OTAwMTk4NCwiYXV0aF90aW1lIjoxNjY5MDAxOTY5LCJqdGkiOiJkYWU2Yjg5NS1mOTk0LTQ2NmQtOGVkMy0zZDc3ZDgwZmYwOWMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcmVhbG1zL0RpZ2l0YWxNZWRpYSIsImF1ZCI6Im1pY3Jvc2VydmljaW9zIiwic3ViIjoiODU2NzVlNmYtY2M0YS00MGVjLTg3NmUtMTQyYmUxZDUzZWViIiwidHlwIjoiSUQiLCJhenAiOiJtaWNyb3NlcnZpY2lvcyIsInNlc3Npb25fc3RhdGUiOiI1ZTJiYWU2ZS0wYmFlLTQzYjMtOTJiNS1hODUzM2VmMmQ1NmIiLCJhdF9oYXNoIjoiZ3VrdTRYNElwZWF2SDJsQmJTTlpsQSIsImFjciI6IjEiLCJzaWQiOiI1ZTJiYWU2ZS0wYmFlLTQzYjMtOTJiNS1hODUzM2VmMmQ1NmIiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6ImFkbWluIGFkbWluIiwiZ3JvdXBzIjpbIi9hZG1pbiJdLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbmciLCJnaXZlbl9uYW1lIjoiYWRtaW4iLCJmYW1pbHlfbmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbmdAbWFpbC5jb20ifQ.IP7jQAx6L7citWtJLgBicTwGb9FQgHpOt2hJaOalQM_TrdPa2homg-bd24y4-T1TbBt2o-gYp-n1fGEi2EdTZ8GHiNfFX1n9cJpDbnObp7N7o8SzNtOxzNbj-DeJ-OXFpkh-zQU3jhN8bxQtsNzHCbiv-u7F0kCGbVVDE8D4akeqUfxs1bnVC9D2YICYtoBSMxEHMZZLxIkejy9EDS1Sx2UZ4otbONSkUOw9Sg9HWeHrDOQa6W1lOLeGxZcVH3xLjFY70nR8d2ymy5CDGC5WM_rErYu8UtSQETKtgkFglDoxdXhqit1x_DbseQUsmV_IDhFaDNZxqzTzK0scLJcsSA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
